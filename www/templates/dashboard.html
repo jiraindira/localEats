@@ -1,0 +1,37 @@
+<ion-view view-title="Dashboard">
+  <ion-content ng-class="{expanded:$scope.isExpanded}">
+    <div class="hero slide-up" style="background-image: url('img/spices.jpg');">
+      <div class="content">
+        <div class="avatar" style="background-image: url('img/jirain.jpg');"></div>
+        <h3><a class="light">Jirain</a></h3>
+      </div>
+    </div>
+    <div class="tabs tabs-dark tabs-icon-top static">
+      <a ui-sref="app.reviewed" class="tab-item">
+        <i class="icon ion-arrow-graph-up-right"></i> Reviewed
+      </a>
+      <a ui-sref="app.friends" class="tab-item">
+        <i class="icon ion-android-people"></i> Bookmarked
+      </a>
+      <a ui-sref="app.restaurantInfo" class="tab-item">
+        <i class="icon ion-images"></i> Events
+      </a>
+    </div>
+
+    <button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900" ui-sref="app.searchRestaurants">
+      <i class="icon ion-plus"></i>
+    </button>
+
+    <h4 class="content padding double-padding-x">Bookmarked</h4>
+    <div class="list animate-fade-slide-in-right">
+      <ion-list>
+        <ion-item class="item-avatar item-icon-right" ng-repeat="restaurant in restaurants">
+          <img src="img/cutlery.jpg" alt="Photo">
+          <h2>{{restaurant.name}}</h2>
+          <p>{{restaurant.address}}</p>
+          <i class="icon ion-compose icon-accessory"></i>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>

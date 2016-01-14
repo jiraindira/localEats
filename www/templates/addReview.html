@@ -1,0 +1,62 @@
+<ion-view view-title="Add Review">
+  <ion-content>
+
+    <h3 class="padding-left padding-top">{{restaurantData.name}}</h3>
+    <h5 class="padding-left">{{restaurantData.crossStreet}}</h5>
+
+
+    <div class="list">
+      <div class="item item-button-right">
+        <span class="input-label ">The food was</span>
+        <div class="buttons">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('good')}" ng-click="setFoodActive('good')">Good</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('great')}" ng-click="setFoodActive('great')">Great</a>
+        </div>
+      </div>
+
+      <div class="item item-button-right">
+        <span class="input-label ">The service was</span>
+        <div class="buttons">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('good')}" ng-click="setServiceActive('good')">Good</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('great')}" ng-click="setServiceActive('great')">Great</a>
+        </div>
+      </div>
+
+      <div class="item item-button-right">
+        <span class="input-label ">The vibe was</span>
+        <div class="buttons">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('good')}" ng-click="setVibeActive('good')">Good</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('great')}" ng-click="setVibeActive('great')">Great</a>
+        </div>
+      </div>
+
+
+      <div class="item item-input  item-stacked-label">
+        <span class="input-label ">Recommendations</span>
+        <input type="text" placeholder="Dish Name" ng-model="reviewerData.dish">
+      </div>
+
+      <!--<div class="item">-->
+        <!--<span class="input-label ">Observations</span>-->
+        <!--<div class="item item-checkbox" ng-repeat="observation in restaurantData.observations" ng-model="observation.isSelected">-->
+          <!--<label class="checkbox"><input type="checkbox"></label>-->
+          <!--{{observation.name}}-->
+        <!--</div>-->
+
+      <!--</div>-->
+    </div>
+
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="AddPost()">Submit</button>
+    </div>
+
+  <div>
+
+
+
+
+  </div>
+
+
+  </ion-content>
+</ion-view>

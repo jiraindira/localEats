@@ -1,0 +1,20 @@
+/* Empty. Add your own CSS if you like */
+
+.loginTitle {
+  color: darkred;
+  text-align: left;
+  padding-left: 19px;
+}
+
+.reducedPadding {
+  padding-top:2px;
+
+}
+
+.buttonTiny {
+  box-shadow: none;
+  padding: 3px 7px;
+  font-size: 10px;
+  font-family: "RobotoDraft", "Roboto", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+

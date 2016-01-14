@@ -1,0 +1,24 @@
+<ion-modal-view ng-controller="FilterCtrl">
+  <ion-header-bar class="bar-assertive-900 bar bar-header" align-title="left">
+    <button class="button button-icon button-clear ion-close-round" ng-click="closeModal()"></button>
+    <div class="title title-left header-item" style="left: 45px;">Filter</div>
+    <!--<button class="button button-icon ion-plus-circled" ng-click="#/tab/addReview"></button>-->
+
+  </ion-header-bar>
+
+  <ion-content class="has-header">
+    <div class="list">
+      <div class="item item-divider">Cities</div>
+      <ion-toggle ng-repeat="city in filterService.allCities" ng-model="city.isSelected">
+        {{city.name}}
+      </ion-toggle>
+
+      <div class="item item-divider">Reviewers</div>
+      <ion-toggle ng-repeat="reviewer in filterService.allReviewers" ng-model="reviewer.isSelected">
+        {{reviewer.name}}
+      </ion-toggle>
+
+    </div>
+
+  </ion-content>
+</ion-modal-view>

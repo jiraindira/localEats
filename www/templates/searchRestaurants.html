@@ -1,0 +1,32 @@
+<ion-view view-title="Add Review">
+  <ion-content>
+    <div class="item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Search Restaurant" ng-change="search(data.search)" ng-model="data.search">
+      </label>
+    </div>
+    <div class="item-input-inset reducedPadding">
+      <label class="item-input-wrapper">
+        <i class="icon ion-map placeholder-icon"></i>
+        <input type="text" placeholder="New York" ng-change="search(data.search)" ng-model="data.location">
+      </label>
+    </div>
+
+
+    <ion-list>
+      <ion-item class="item-avatar item-button-right" ng-repeat="place in places">
+        <img src="img/cutlery.jpg" alt="Photo">
+        <h2>{{place.name}}</h2>
+        <p>{{place.location.crossStreet}}</p>
+        <div class="buttons">
+          <a class="button button-clear buttonTiny" ng-click="itemSelected(place,'bookmark')"><i class="icon ion-bookmark icon-accessory"></i></a>
+          <a class="button button-clear buttonTiny" ng-click="itemSelected(place, 'review')"><i class="icon ion-clipboard icon-accessory"></i></a>
+        </div>
+        <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+      </ion-item>
+    </ion-list>
+
+
+  </ion-content>
+</ion-view>
