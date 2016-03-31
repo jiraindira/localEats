@@ -7,6 +7,7 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'firebase'])
 
 .run(function($ionicPlatform) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,7 +29,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
+    templateUrl: 'menu/menu.html',
     controller: 'AppCtrl'
   })
 
@@ -36,36 +37,28 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     url: '/dashboard',
     views: {
       'menuContent': {
-        templateUrl: 'templates/dashboard.html',
+        templateUrl: 'dashboard/dashboard.html',
         controller: 'DashboardCtrl'
       }
     }
   })
 
   .state('app.reviewed', {
-      url: '/reviewed',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/reviewed.html',
-          controller: 'ReviewedCtrl'
-        },
-        //'fabContent': {
-        //  template: '<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900 spin" ng-click="openModal()"><i class="icon ion-funnel"></i></button>',
-        //  controller: function ($timeout) {
-        //    $timeout(function () {
-        //      document.getElementById('fab-friends').classList.toggle('on');
-        //    }, 900);
-        //  }
-        //}
+    url: '/reviewed',
+    views: {
+      'menuContent': {
+        templateUrl: 'reviewed/reviewed.html',
+        controller: 'ReviewedCtrl'
       }
+    }
     })
 
-    .state('app.addchoice', {
-      url: '/addchoice',
+    .state('app.bookmarked', {
+      url: '/bookmarked',
       views: {
         'menuContent': {
-          templateUrl: 'templates/addchoice.html',
-          controller: 'AddChoiceCtrl'
+          templateUrl: 'bookmarked/bookmarked.html',
+          controller: 'BookmarkedCtrl'
         }
       }
     })
@@ -74,7 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       url: '/searchRestaurants',
       views: {
         'menuContent': {
-          templateUrl: 'templates/searchRestaurants.html',
+          templateUrl: 'searchRestaurants/searchRestaurants.html',
           controller: 'SearchRestaurantsCtrl'
         }
       }
@@ -84,18 +77,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       url: '/addReview',
       views: {
         'menuContent': {
-          templateUrl: 'templates/addReview.html',
+          templateUrl: 'addReview/addReview.html',
           controller: 'AddReviewCtrl'
         }
       }
     })
 
-    .state('app.restaurantInfo', {
+    .state('app.restaurantDetails', {
       url: '/restaurant',
       views: {
         'menuContent': {
-          templateUrl: 'templates/restaurant-info.html',
-          controller: 'RestaurantInfoCtrl'
+          templateUrl: 'restaurantDetails/restaurantDetails.html',
+          controller: 'RestaurantDetailsCtrl'
         }
       }
     })
@@ -104,21 +97,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       url: '/login',
       views: {
         'menuContent': {
-          templateUrl: 'templates/login.html',
-          controller: 'LoginCtrl'
+          templateUrl: 'auth/login.html',
+          controller: 'AuthCtrl'
         }
       }
     });
 
-  //.state('app.profile', {
-  //  url: '/profile',
-  //  views: {
-  //    'menuContent': {
-  //      templateUrl: 'templates/profile.html',
-  //      controller: 'ProfileCtrl'
-  //    }
-  //  }
-  //});
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/login');
-});
+})
+  .constant('FirebaseUrl', 'https//dazzling-heat-4525.firebaseio.com/');

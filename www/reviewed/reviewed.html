@@ -1,8 +1,9 @@
 <ion-view view-title="Reviewed">
 
-      <button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900" ng-click="openModal()">
-        <i class="icon ion-funnel"></i>
-      </button>
+    <button id="fab-reviewed" class="button button-fab button-fab-bottom-right expanded button-energized-900" ng-click="openModal()">
+      <i class="icon ion-funnel"></i>
+    </button>
+
 
   <ion-content ng-class="{expanded:isExpanded}">
     <div class="content">
@@ -12,7 +13,7 @@
             <img src="img/cutlery.jpg" alt="Photo">
             <h2>{{restaurant.name}}</h2>
             <p>{{restaurant.address}}</p>
-            <i class="icon ion-compose icon-accessory"></i>
+            <!--<i class="icon ion-compose energized"></i>-->
           </ion-item>
         </ion-list>
       <!--</div>-->

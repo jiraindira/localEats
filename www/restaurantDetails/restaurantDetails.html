@@ -1,15 +1,15 @@
 <ion-view view-title="Restaurant">
   <ion-content ng-class="{expanded:$scope.isExpanded}">
-    <div class="hero has-mask" style="background-image: url('img/login-background.jpg');">
+    <div class="hero" style="background-image: url('img/rest-details.jpg');">
       <div class="content">
-        <button class="button button-large button-clear flat icon ion-images pull-right "></button>
-        <button class="button button-large button-clear flat icon ion-heart pull-right "></button>
+        <a class="button button-clear button-large flat pull-right"><i class="icon ion-images energized-900"></i></a>
+        <a class="button button-clear button-large flat pull-right"><i class="icon ion-heart energized-900"></i></a>
       </div>
     </div>
 
     <div class="mid-bar dark-bg z1 padding">
-      <h3>Pio Pio</h3>
-      <p>123 6th Avenue</p>
+      <h3>{{restaurantData.name}}</h3>
+      <p>{{restaurantData.address}}</p>
     </div>
 
     <button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900" ui-sref="app.searchRestaurants">
