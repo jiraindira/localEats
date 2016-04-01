@@ -43,42 +43,10 @@ angular.module('starter.controllers')
       $scope.restaurantData.latitude = selected.location.lat;
 
       restaurantDataService.RestaurantAttributes = $scope.restaurantData;
-      this.data.search = null
+      this.data.search = null;
 
       if (choice === 'bookmark'){
-        //make a copy of the data into bookmark variable
-        //add date to the reviewer list
-        d = new Date();
-        $scope.restaurantData.date = d.toDateString();
-        $scope.restaurantData.dateVal = 0 - Date.now();
-
-        var bookmark = angular.copy($scope.restaurantData);
-
-        var id = $scope.restaurantData.fsquareID;
-        var manualId = $scope.restaurantData.name;
-
-        if (id == undefined){
-          var firebaseID = manualId;
-          var firebaseChild = "name";
-        }
-        else{
-          var firebaseID = id;
-          var firebaseChild = "fsquareID"
-        }
-        
-        // create restaurant object from firebase
-        var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
-        restoRef.orderByChild(firebaseChild).startAt(firebaseID).endAt(firebaseID).once('value', function(dataSnapshot) {
-          //GET DATA
-          if (dataSnapshot.exists()){
-            console.log('bookmark already exist');
-          }
-          else{
-            var pushedResto = restoRef.push(bookmark);
-          };
-        })
-
-        $state.go('app.dashboard', {}, {reload: true});
+        $state.go('app.addBookmark', {}, {reload: true});
       }
       else{
         $state.go('app.addReview', {}, {reload: true});

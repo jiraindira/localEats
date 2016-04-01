@@ -63,6 +63,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       }
     })
 
+    .state('app.addBookmark', {
+      url: '/dashboard',
+      views: {
+        'menuContent': {
+          templateUrl: 'dashboard/dashboard.html',
+          controller: 'AddBookmarkCtrl'
+        }
+      }
+    })
+
     .state('app.searchRestaurants', {
       url: '/searchRestaurants',
       views: {

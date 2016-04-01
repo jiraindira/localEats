@@ -118,6 +118,7 @@ angular.module('starter.controllers')
       d = new Date();
       $scope.reviewerData.date = d.toDateString();
       $scope.reviewerData.dateVal = 0 - Date.now();
+      $scope.reviewerData.status = "Reviewed";
       $scope.restaurantData.date = d.toDateString();
       $scope.restaurantData.dateVal = 0 - Date.now();
 
@@ -126,7 +127,7 @@ angular.module('starter.controllers')
       var payloadReviewer = angular.copy($scope.reviewerData);
 
       // create restaurant object from firebase
-      var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+      var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/restaurants');
       var reviewsUrl = "";
       var fbReviews = {};
 
@@ -138,7 +139,7 @@ angular.module('starter.controllers')
           var key = Object.keys(data)[0];
           var masterList = consolidateObservation(data[key], $scope.restaurantData.observations);
           restoRef.child(key).set(masterList);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + key + "/reviews";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + key + "/person";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});
@@ -146,7 +147,7 @@ angular.module('starter.controllers')
         else {
           //var masterList1 = consolidateObservation(payloadRestaurant,$scope.restaurantData.observations);
           var pushedResto = restoRef.push(payloadRestaurant);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + pushedResto.key() + "/reviews";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + pushedResto.key() + "/person";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});

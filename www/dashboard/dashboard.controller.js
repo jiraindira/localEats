@@ -43,6 +43,13 @@ angular.module('starter.controllers')
 
     var sortedData = [];
     var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
+    //
+    // firebaseObj.orderByChild("fsquareID").equalTo(fsquareid).on("child_added", function(snapshot) {
+    //   $scope.restaurantData = snapshot.val();
+    //   console.log($scope.restaurantData);
+    // });
+    //
+
     firebaseObj.orderByChild("dateVal").on('child_added', function(dataSnapshot) {
       //firebaseObj.once('value', function(dataSnapshot){
       var data = dataSnapshot.val();
