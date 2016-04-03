@@ -14,7 +14,7 @@
         <i class="icon ion-android-people"></i> Bookmarked
       </a>
       <a ui-sref="app.restaurantInfo" class="tab-item">
-        <i class="icon ion-images"></i> Events
+        <i class="icon ion-images"></i> Dashboard
       </a>
     </div>
 
@@ -22,13 +22,14 @@
       <i class="icon ion-plus"></i>
     </button>
 
-    <h4 class="content padding double-padding-x">Bookmarked</h4>
+    <h4 class="content padding double-padding-x">Feed</h4>
     <div class="list animate-fade-slide-in-right">
       <ion-list>
-        <ion-item class="item-avatar item-icon-right" ng-repeat="restaurant in restaurants" ng-click="restaurantSelected(restaurant)">
+        <ion-item class="item-avatar item-icon-right" ng-repeat="feed in feeds" ng-click="restaurantSelected(restaurant)">
           <img src="img/cutlery.jpg" alt="Photo">
-          <h2>{{restaurant.name}}</h2>
-          <p>{{restaurant.address}}</p>
+          <h2>{{feed.restaurantName}}</h2>
+          <h4>{{feed.address}}</h4>
+          ({{feed.entryType}} by {{feed.user}} at {{feed.date}})
         </ion-item>
       </ion-list>
     </div>

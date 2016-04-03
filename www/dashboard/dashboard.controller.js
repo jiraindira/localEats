@@ -42,7 +42,7 @@ angular.module('starter.controllers')
     }
 
     var sortedData = [];
-    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
+    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/feed');
     //
     // firebaseObj.orderByChild("fsquareID").equalTo(fsquareid).on("child_added", function(snapshot) {
     //   $scope.restaurantData = snapshot.val();
@@ -55,12 +55,14 @@ angular.module('starter.controllers')
       var data = dataSnapshot.val();
       sortedData.push(data);
 
-      var restaurants = getArrayFromObject(sortedData);
+      var feeds = getArrayFromObject(sortedData);
 
-      if (!restaurants.length) return;
+      if (!feeds.length) return;
 
-      $scope.$apply(function () {
-        $scope.restaurants = restaurants;
+      _.defer(function(){
+        $scope.$apply(function () {
+          $scope.feeds = feeds;
+        });
       });
 
     });

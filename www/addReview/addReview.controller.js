@@ -153,6 +153,21 @@ angular.module('starter.controllers')
 
         }
       });
+
+      // add activity into the feed
+      $scope.feedData = {};
+      $scope.feedData.user = angular.copy($scope.reviewerData.reviewer);
+      $scope.feedData.restaurantName = angular.copy($scope.restaurantData.name);
+      $scope.feedData.fsquareID = angular.copy($scope.restaurantData.fsquareID);
+      $scope.feedData.entryType = 'Reviewed';
+      $scope.feedData.address = angular.copy($scope.restaurantData.address);
+      $scope.feedData.date = angular.copy($scope.reviewerData.date);
+      $scope.feedData.dateVal = angular.copy($scope.reviewerData.dateVal);
+
+      var payloadFeed = angular.copy($scope.feedData);
+      var feedRed = new Firebase('https://dazzling-heat-4525.firebaseio.com/feed');
+      feedRed.push(payloadFeed);
+
     };
 
     //consolidate observations into a master list
