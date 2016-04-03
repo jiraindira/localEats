@@ -3,7 +3,7 @@
  */
 angular.module('starter.controllers')
 
-  .controller('ReviewedCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal){
+  .controller('ReviewedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService){
 
     // Set Header
     $scope.$parent.showHeader();
@@ -69,6 +69,15 @@ angular.module('starter.controllers')
 
     $scope.openModal = function() {
       $scope.modal.show()
+    };
+
+    $scope.restaurantSelected = function(selected){
+
+      $scope.selectedPlace = selected;
+      selectedRestaurantService.selectedRestaurant = $scope.selectedPlace;
+
+      $state.go('app.restaurantDetails', {}, {reload: true});
+
     };
 
   });

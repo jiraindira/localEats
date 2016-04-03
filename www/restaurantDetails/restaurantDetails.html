@@ -1,59 +1,42 @@
 <ion-view view-title="Restaurant">
   <ion-content ng-class="{expanded:$scope.isExpanded}">
     <div class="hero" style="background-image: url('img/rest-details.jpg');">
-      <div class="content">
-        <a class="button button-clear button-large flat pull-right"><i class="icon ion-images energized-900"></i></a>
-        <a class="button button-clear button-large flat pull-right"><i class="icon ion-heart energized-900"></i></a>
-      </div>
+      <!--<div class="content">-->
+        <!--<a class="button button-clear button-large flat pull-right"><i class="icon ion-images energized-900"></i></a>-->
+        <!--<a class="button button-clear button-large flat pull-right"><i class="icon ion-heart energized-900"></i></a>-->
+      <!--</div>-->
     </div>
 
     <div class="mid-bar dark-bg z1 padding">
       <h3>{{restaurantData.name}}</h3>
       <p>{{restaurantData.address}}</p>
+      <p>
+        <a href="#" class="subdued">{{numOfReviews}} Review(s)</a>
+        <a href="#" class="subdued">{{numOfBookmarks}} Bookmark(s)</a>
+      </p>
     </div>
 
-    <button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900" ui-sref="app.searchRestaurants">
-      <i class="icon ion-plus"></i>
-    </button>
+    <!--<button id="fab-friends" class="button button-fab button-fab-bottom-right expanded button-energized-900" ui-sref="app.searchRestaurants">-->
+      <!--<i class="icon ion-plus"></i>-->
+    <!--</button>-->
 
-    <div class="list card stable-bg">
+    <div class="list card" ng-repeat="review in restaurantData.reviews">
+
       <div class="item item-avatar">
         <img src="img/jirain.jpg">
-        <h2>Jirain</h2>
-      </div>
-      <div class="item item-body">
-        This place has good chicken
-        <p>
-          <a class="subdued">1 Like</a>
-          <a class="subdued">5 Comments</a>
-        </p>
+        <h2>{{review.reviewer}}</h2>
       </div>
 
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-thumbsup"></i>Like</a>
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-chatbox"></i>Comment</a>
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-share"></i>Share</a>
+      <div class="item item-body">
+        <ul>
+          <li><strong>Food:</strong> {{review.food}} </li>
+          <li><strong>Service:</strong> {{review.service}} </li>
+          <li><strong>Vibe:</strong> {{review.vibe}} </li>
+        </ul>
+        <h3>Recommendations:</h3>
+        <span>{{review.dish}} </span>
       </div>
     </div>
 
-    <div class="list card stable-bg">
-      <div class="item item-avatar">
-        <img src="img/daenerys.jpg">
-        <h2>Natalia</h2>
-      </div>
-      <div class="item item-body">
-        This place has good chicken
-        <p>
-          <a class="subdued">1 Like</a>
-          <a class="subdued">5 Comments</a>
-        </p>
-      </div>
-
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-thumbsup"></i>Like</a>
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-chatbox"></i>Comment</a>
-        <a class="tab-item" data-ink-color="#336699" data-ink-opacity="0.5"><i class="icon ion-share"></i>Share</a>
-      </div>
-    </div>
   </ion-content>
 </ion-view>

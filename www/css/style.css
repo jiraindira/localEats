@@ -18,3 +18,6 @@
   font-family: "RobotoDraft", "Roboto", "Helvetica Neue", "Segoe UI", sans-serif;
 }
 
+.card .item.item-avatar {
+  min-height: 60px;
+}

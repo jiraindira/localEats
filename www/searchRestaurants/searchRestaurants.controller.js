@@ -7,6 +7,7 @@ angular.module('starter.controllers')
   .controller('SearchRestaurantsCtrl', function($scope, $state, $stateParams, $q, Firebase, placesExplorerService, restaurantDataService, ionicMaterialInk, ionicMaterialMotion) {
 
     // we will store all of the restaurant specific data here
+    
     $scope.restaurantData = {};
     // we will store all of the reviewer's specific data here
 

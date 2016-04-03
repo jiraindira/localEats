@@ -3,7 +3,7 @@
  */
 angular.module('starter.controllers')
 
-  .controller('BookmarkedCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal){
+  .controller('BookmarkedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService){
 
     function getArrayFromObject(object) {
       var array = [];
@@ -41,6 +41,15 @@ angular.module('starter.controllers')
 
     $scope.openModal = function() {
       $scope.modal.show()
+    };
+
+    $scope.restaurantSelected = function(selected){
+
+      $scope.selectedPlace = selected;
+      selectedRestaurantService.selectedRestaurant = $scope.selectedPlace;
+
+      $state.go('app.restaurantDetails', {}, {reload: true});
+
     };
 
   });

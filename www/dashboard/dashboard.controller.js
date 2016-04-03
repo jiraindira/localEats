@@ -3,7 +3,7 @@
  */
 angular.module('starter.controllers')
 
-  .controller('DashboardCtrl', function($scope,$state, $stateParams, Firebase, $timeout, ionicMaterialMotion, ionicMaterialInk,UserService, selectedRestaurantService){
+  .controller('DashboardCtrl', function($scope, $state, $stateParams, Firebase, $timeout, ionicMaterialMotion, ionicMaterialInk,UserService, selectedRestaurantService){
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
