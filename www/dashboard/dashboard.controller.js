@@ -5,11 +5,11 @@ angular.module('starter.controllers')
 
   .controller('DashboardCtrl', function($scope, $state, $stateParams, Firebase, $timeout, ionicMaterialMotion, ionicMaterialInk,UserService, selectedRestaurantService){
     // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    // $scope.$parent.showHeader();
+    // $scope.$parent.clearFabs();
+    // $scope.isExpanded = false;
+    // $scope.$parent.setExpanded(false);
+    // $scope.$parent.setHeaderFab(false);
     $scope.profileData = UserService.getUser();
 
     console.log($scope.profileData.picture);
@@ -71,6 +71,7 @@ angular.module('starter.controllers')
 
       $scope.selectedPlace = selected;
       selectedRestaurantService.selectedRestaurant = $scope.selectedPlace;
+      // selectedRestaurantService.entryType = $scope.selectedPlace;
 
       $state.go('app.restaurantDetails', {}, {reload: true});
 

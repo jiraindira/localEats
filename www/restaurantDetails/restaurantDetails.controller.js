@@ -7,21 +7,31 @@ angular.module('starter.controllers')
   .controller('RestaurantDetailsCtrl', function($scope, $state, $stateParams, Firebase,selectedRestaurantService, ionicMaterialInk, ionicMaterialMotion ){
     $scope.item = selectedRestaurantService.getSelectedRestaurant();
     var fsquareid = $scope.item.fsquareID;
+    var entryType = $scope.item.entryType;
 
-    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
-    var firebaseObj2 = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
+    var firebaseObjReviewed = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+    var firebaseObjBookmarked = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
 
-    firebaseObj.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
-      $scope.restaurantData = snapshot.val();
+    firebaseObjReviewed.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
+      $scope.reviewData = snapshot.val();
       // console.log($scope.restaurantData);
       $scope.numOfReviews = snapshot.child("reviews").numChildren();
+
+      if(entryType === 'Reviewed')
+      {
+        $scope.restaurantData = angular.copy($scope.reviewData);
+      }
     });
 
-    firebaseObj2.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
-      $scope.restaurantData = snapshot.val();
+    firebaseObjBookmarked.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
+      $scope.bookmarkData = snapshot.val();
       // console.log($scope.restaurantData);
       $scope.numOfBookmarks = snapshot.child("person").numChildren();
-    });
 
+      if(entryType === 'Bookmarked')
+      {
+        $scope.restaurantData = angular.copy($scope.bookmarkData);
+      }
+    });
 
   });

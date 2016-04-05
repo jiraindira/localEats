@@ -6,9 +6,9 @@ angular.module('starter.controllers')
   .controller('ReviewedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService){
 
     // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.$parent.setHeaderFab('left');
+    // $scope.$parent.showHeader();
+    // $scope.$parent.clearFabs();
+    // $scope.$parent.setHeaderFab('left');
 
     // Delay expansion
     $timeout(function() {
