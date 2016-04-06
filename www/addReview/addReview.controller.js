@@ -16,8 +16,8 @@ angular.module('starter.controllers')
     $scope.reviewerData.dish = "";
     $scope.reviewerData = {
       food: 'good',
-      service: 'good',
-      vibe: 'good'
+      service: '15%',
+      vibe: 'casual'
     };
 
     $scope.setFoodActive = function(type) {
