@@ -1,5 +1,5 @@
 angular.module('starter.controllers', ['myService'])
-  
+
 
 
 .controller('FilterCtrl', function($scope, Firebase, filterService ) {
@@ -41,7 +41,7 @@ angular.module('starter.controllers', ['myService'])
       //Retrieve all reviewers
       var allReviewers = [];
       restaurants.forEach(function (restaurant) {
-        var reviews = getArrayFromObject(restaurant.reviews);
+        var reviews = getArrayFromObject(restaurant.user);
         reviews.forEach(function (review) {
           allReviewers.push(review.reviewer);
         });
@@ -88,7 +88,7 @@ angular.module('starter.controllers', ['myService'])
   this.getSelectedRestaurant = function(){
     return self.selectedRestaurant;
   };
-  
+
 })
 
 .filter('myFilter',function(filterService){

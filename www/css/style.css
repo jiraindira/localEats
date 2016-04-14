@@ -21,3 +21,12 @@
 .card .item.item-avatar {
   min-height: 60px;
 }
+
+.my-goodFood-icon {
+  content: url('/www/img/goodFood.ico');
+  width: 22px;
+}
+
+p {
+  padding-top: 7px;
+}

@@ -15,7 +15,7 @@ angular.module('starter.controllers')
     $scope.reviewerData = {};
     $scope.reviewerData.dish = "";
     $scope.reviewerData = {
-      food: 'good',
+      food: 'Good',
       service: '15%',
       vibe: 'casual'
     };
@@ -25,6 +25,7 @@ angular.module('starter.controllers')
     };
     $scope.isFoodActive = function(type) {
       return type === $scope.reviewerData.food;
+      // console.log($scope.reviewerData.food);
     };
 
     $scope.setServiceActive = function(type) {
@@ -138,7 +139,7 @@ angular.module('starter.controllers')
           var key = Object.keys(data)[0];
           var masterList = consolidateObservation(data[key], $scope.restaurantData.observations);
           restoRef.child(key).set(masterList);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + key + "/reviews";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + key + "/user";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});
@@ -146,7 +147,7 @@ angular.module('starter.controllers')
         else {
           //var masterList1 = consolidateObservation(payloadRestaurant,$scope.restaurantData.observations);
           var pushedResto = restoRef.push(payloadRestaurant);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + pushedResto.key() + "/reviews";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + pushedResto.key() + "/user";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});

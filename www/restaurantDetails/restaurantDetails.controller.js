@@ -15,7 +15,7 @@ angular.module('starter.controllers')
     firebaseObjReviewed.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
       $scope.reviewData = snapshot.val();
       // console.log($scope.restaurantData);
-      $scope.numOfReviews = snapshot.child("reviews").numChildren();
+      $scope.numOfReviews = snapshot.child("user").numChildren();
 
       if(entryType === 'Reviewed')
       {
@@ -26,7 +26,7 @@ angular.module('starter.controllers')
     firebaseObjBookmarked.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
       $scope.bookmarkData = snapshot.val();
       // console.log($scope.restaurantData);
-      $scope.numOfBookmarks = snapshot.child("person").numChildren();
+      $scope.numOfBookmarks = snapshot.child("user").numChildren();
 
       if(entryType === 'Bookmarked')
       {

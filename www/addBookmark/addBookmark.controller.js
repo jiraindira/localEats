@@ -51,14 +51,14 @@ angular.module('starter.controllers')
         var key = Object.keys(data)[0];
         var masterList = consolidateObservation(data[key], $scope.restaurantData.observations);
         restoRef.child(key).set(masterList);
-        reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/bookmarked/' + key + "/person";
+        reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/bookmarked/' + key + "/user";
         fbReviews = new Firebase(reviewsUrl);
         fbReviews.push(payloadReviewer);
         $state.go('app.dashboard', {}, {reload: true});
       }
       else {
         var pushedResto = restoRef.push(payloadRestaurant);
-        reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/bookmarked/' + pushedResto.key() + "/person";
+        reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/bookmarked/' + pushedResto.key() + "/user";
         fbReviews = new Firebase(reviewsUrl);
         fbReviews.push(payloadReviewer);
         $state.go('app.dashboard', {}, {reload: true});
