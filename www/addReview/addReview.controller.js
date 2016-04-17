@@ -102,10 +102,12 @@ angular.module('starter.controllers')
     $scope.AddPost = function() {
       $scope.reviewerData.reviewer = profileName;
       $scope.reviewerData.id = profileID;
+      $scope.reviewerData.entryType = 'Reviewed';
 
       var id = $scope.restaurantData.fsquareID;
       var manualId = $scope.restaurantData.name;
       var reviewer = $scope.reviewerData.reviewer;
+      
 
       if (id == undefined) {
         var firebaseID = manualId;

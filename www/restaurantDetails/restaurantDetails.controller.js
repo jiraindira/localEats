@@ -4,10 +4,20 @@
 
 angular.module('starter.controllers')
 
-  .controller('RestaurantDetailsCtrl', function($scope, $state, $stateParams, Firebase,selectedRestaurantService, ionicMaterialInk, ionicMaterialMotion ){
+  .controller('RestaurantDetailsCtrl', function($scope, $state, $stateParams, Firebase,selectedRestaurantService, ionicMaterialInk, ionicMaterialMotion, dataSourceReviewedBookmarked ){
     $scope.item = selectedRestaurantService.getSelectedRestaurant();
+    $scope.dataSource = dataSourceReviewedBookmarked.getDataSource();
+
     var fsquareid = $scope.item.fsquareID;
-    var entryType = $scope.item.entryType;
+
+    // if ($scope.dataSource == "Reviewed" || $scope.dataSource == "Bookmarked") {
+    //   var entryType = $scope.item.user.entryType;
+    // }
+    // else
+    // {
+    //   var entryType = $scope.item.entryType;
+    // }
+
 
     var firebaseObjReviewed = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
     var firebaseObjBookmarked = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
@@ -17,7 +27,7 @@ angular.module('starter.controllers')
       // console.log($scope.restaurantData);
       $scope.numOfReviews = snapshot.child("user").numChildren();
 
-      if(entryType === 'Reviewed')
+      if($scope.dataSource === 'Reviewed')
       {
         $scope.restaurantData = angular.copy($scope.reviewData);
       }
@@ -28,9 +38,10 @@ angular.module('starter.controllers')
       // console.log($scope.restaurantData);
       $scope.numOfBookmarks = snapshot.child("user").numChildren();
 
-      if(entryType === 'Bookmarked')
+      if($scope.dataSource === 'Bookmarked')
       {
         $scope.restaurantData = angular.copy($scope.bookmarkData);
+        console.log($scope.restaurantData);
       }
     });
 

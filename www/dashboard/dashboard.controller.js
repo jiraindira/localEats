@@ -3,7 +3,7 @@
  */
 angular.module('starter.controllers')
 
-  .controller('DashboardCtrl', function($scope, $state, $stateParams, Firebase, $timeout, ionicMaterialMotion, ionicMaterialInk,UserService, selectedRestaurantService){
+  .controller('DashboardCtrl', function($scope, $state, $stateParams, Firebase, $timeout, ionicMaterialMotion, ionicMaterialInk,UserService, selectedRestaurantService, dataSourceReviewedBookmarked){
     // Set Header
     // $scope.$parent.showHeader();
     // $scope.$parent.clearFabs();
@@ -71,6 +71,7 @@ angular.module('starter.controllers')
 
       $scope.selectedPlace = selected;
       selectedRestaurantService.selectedRestaurant = $scope.selectedPlace;
+      dataSourceReviewedBookmarked.dataSourceRB = selected.entryType;
       // selectedRestaurantService.entryType = $scope.selectedPlace;
 
       $state.go('app.restaurantDetails', {}, {reload: true});

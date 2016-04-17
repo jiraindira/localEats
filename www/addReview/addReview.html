@@ -15,13 +15,13 @@
           <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('Mind-blowing')}" ng-click="setFoodActive('Mind-blowing')">Mind-blowing</a>
         </div>
 
-        <p ng-if="isFoodActive('Good')">Caption: You should try it if you're in the area!</p>
-        <p ng-if="isFoodActive('Great')">Caption: You should try to make it here!</p>
-        <p ng-if="isFoodActive('Mind-blowing')">Caption: You got to eat here!!</p>
+        <p ng-if="isFoodActive('Good')"><span class="bold">Caption:</span> You should try it if you're in the area!</p>
+        <p ng-if="isFoodActive('Great')"><span class="bold">Caption:</span> You should try to make it here!</p>
+        <p ng-if="isFoodActive('Mind-blowing')"><span class="bold">Caption:</span> You got to eat here!!</p>
 
       </div>
 
-
+      <hr width="75%">
 
       <div class="item">
         <span class="input-label ">How much would you tip for the service?</span>
@@ -30,10 +30,12 @@
           <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('15%')}" ng-click="setServiceActive('15%')">15%</a>
           <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('25%')}" ng-click="setServiceActive('25%')">25%</a>
         </div>
-        <p ng-if="isServiceActive('10%')">Caption: The service could definitely improve!</p>
-        <p ng-if="isServiceActive('15%')">Caption: The service was good.</p>
-        <p ng-if="isServiceActive('25%')">Caption: Excellent service! Top notch!</p>
+        <p ng-if="isServiceActive('10%')"><span class="bold">Caption:</span> The service could definitely improve!</p>
+        <p ng-if="isServiceActive('15%')"><span class="bold">Caption:</span> The service was good.</p>
+        <p ng-if="isServiceActive('25%')"><span class="bold">Caption:</span> Excellent service! Top notch!</p>
       </div>
+
+      <hr width="75%">
 
       <div class="item">
         <span class="input-label ">How was the atmosphere?</span>
@@ -42,11 +44,12 @@
           <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('trendy')}" ng-click="setVibeActive('trendy')">Trendy</a>
           <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('formal')}" ng-click="setVibeActive('formal')">Formal</a>
         </div>
-        <p ng-if="isVibeActive('casual')">Caption: Casual, laid back environment</p>
-        <p ng-if="isVibeActive('trendy')">Caption: You can impress your date here</p>
-        <p ng-if="isVibeActive('formal')">Caption: Bare minimum: shirt and tie!</p>
+        <p ng-if="isVibeActive('casual')"><span class="bold">Caption:</span> Casual, laid back environment</p>
+        <p ng-if="isVibeActive('trendy')"><span class="bold">Caption:</span> You can impress your date here</p>
+        <p ng-if="isVibeActive('formal')"><span class="bold">Caption:</span> Bare minimum: shirt and tie!</p>
       </div>
 
+      <hr width="75%">
 
       <div class="item item-input  item-stacked-label">
         <span class="input-label ">Recommendations</span>

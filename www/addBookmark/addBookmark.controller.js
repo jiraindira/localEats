@@ -14,6 +14,7 @@ angular.module('starter.controllers')
     $scope.reviewerData = {};
     $scope.reviewerData.reviewer = profileName;
     $scope.reviewerData.id = profileID;
+    $scope.reviewerData.entryType = 'Bookmarked';
 
     var id = $scope.restaurantData.fsquareID;
     var manualId = $scope.restaurantData.name;
