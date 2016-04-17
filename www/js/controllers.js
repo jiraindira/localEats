@@ -1,20 +1,25 @@
 angular.module('starter.controllers', ['myService'])
 
-
-
-.controller('FilterCtrl', function($scope, Firebase, filterService ) {
+.controller('FilterCtrl', function($scope, Firebase, filterService, dataSourceReviewedBookmarked ) {
 
   var vm1 = this;
-  $scope.test = 'jirain';
 
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
 
+  $scope.dataSource = dataSourceReviewedBookmarked;
   $scope.filterService = filterService;
 
-  if (!filterService.allReviewers.length) {
-    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+
+  // if (!filterService.allReviewers.length) {
+    if ($scope.dataSource.dataSourceRB == 'Reviewed') {
+      var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+    }
+    else if ($scope.dataSource.dataSourceRB == 'Bookmarked') {
+      var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
+    }
+
     firebaseObj.once('value', function (dataSnapshot) {
       //GET DATA
       var data = dataSnapshot.val();
@@ -57,7 +62,7 @@ angular.module('starter.controllers', ['myService'])
       //$scope.reviewers = users;
 
     });
-  }
+  // }
 
   function getArrayFromObject(object) {
     var array = [];
@@ -77,6 +82,16 @@ angular.module('starter.controllers', ['myService'])
 
     this.getRestaurant = function(){
       return self.RestaurantAttributes;
+    };
+})
+
+.service('dataSourceReviewedBookmarked', function(){
+    var self = this;
+
+    this.dataSourceRB = [];
+
+    this.getDataSource = function(){
+      return self.dataSourceRB;
     };
 })
 
@@ -127,7 +142,7 @@ angular.module('starter.controllers', ['myService'])
       // Get restaurants that are reviewed by the selected reviewers
       return allRestaurants.filter(function (restaurant) {
         //return true
-        var reviews = getArrayFromObject(restaurant.reviews);
+        var reviews = getArrayFromObject(restaurant.user);
         return reviews.some(function(review) {
           return _.find(selectedReviewers, {name: review.reviewer});
         })
@@ -151,6 +166,7 @@ angular.module('starter.controllers', ['myService'])
 
   this.allReviewers = [];
   this.allCities = [];
+  this.filterType = [];
 
   function getSelectedOnly(array){
     return array.filter(function(item){
@@ -165,6 +181,8 @@ angular.module('starter.controllers', ['myService'])
   this.getSelectedCities = function(){
     return getSelectedOnly(self.allCities)
   }
+
+
 })
 
 .service('profileDataService', function(){

@@ -3,12 +3,9 @@
  */
 angular.module('starter.controllers')
 
-  .controller('ReviewedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService){
+  .controller('ReviewedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService, dataSourceReviewedBookmarked){
 
-    // Set Header
-    // $scope.$parent.showHeader();
-    // $scope.$parent.clearFabs();
-    // $scope.$parent.setHeaderFab('left');
+    dataSourceReviewedBookmarked.dataSourceRB = 'Reviewed';
 
     // Delay expansion
     $timeout(function() {
@@ -68,6 +65,7 @@ angular.module('starter.controllers')
     });
 
     $scope.openModal = function() {
+      
       $scope.modal.show()
     };
 

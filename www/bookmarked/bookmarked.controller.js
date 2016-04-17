@@ -3,8 +3,10 @@
  */
 angular.module('starter.controllers')
 
-  .controller('BookmarkedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService){
+  .controller('BookmarkedCtrl', function($scope, $state, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion, $firebase, $ionicModal, selectedRestaurantService, dataSourceReviewedBookmarked){
 
+    dataSourceReviewedBookmarked.dataSourceRB = 'Bookmarked';
+    
     function getArrayFromObject(object) {
       var array = [];
       for (var key in object) {
