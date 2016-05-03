@@ -4,7 +4,7 @@
 angular.module('starter.controllers')
 
 .controller("AuthCtrl", function($scope,$state, UserService){
-
+  
   $scope.login = function(){
     var ref = new Firebase("https://dazzling-heat-4525.firebaseio.com");
     ref.authWithOAuthPopup("facebook", function(error, authData) {

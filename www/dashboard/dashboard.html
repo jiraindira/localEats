@@ -18,8 +18,8 @@
       <a ui-sref="app.bookmarked" class="tab-item">
         <i class="icon ion-android-people"></i> Bookmarked
       </a>
-      <a ui-sref="app.restaurantInfo" class="tab-item">
-        <i class="icon ion-images"></i> Dashboard
+      <a ui-sref="app.myplaces" class="tab-item">
+        <i class="icon ion-images"></i> My Places
       </a>
     </div>
 
@@ -30,7 +30,7 @@
           <img src="img/cutlery.jpg" alt="Photo">
           <h2>{{feed.restaurantName}}</h2>
           <h4>{{feed.address}}</h4>
-          ({{feed.entryType}} by {{feed.user}} at {{feed.date}})
+          ({{feed.entryType}} by {{feed.user}} on {{feed.date}})
         </ion-item>
       </ion-list>
     </div>

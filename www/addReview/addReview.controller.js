@@ -107,7 +107,7 @@ angular.module('starter.controllers')
       var id = $scope.restaurantData.fsquareID;
       var manualId = $scope.restaurantData.name;
       var reviewer = $scope.reviewerData.reviewer;
-      
+
 
       if (id == undefined) {
         var firebaseID = manualId;
@@ -129,7 +129,7 @@ angular.module('starter.controllers')
       var payloadReviewer = angular.copy($scope.reviewerData);
 
       // create restaurant object from firebase
-      var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+        var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
       var reviewsUrl = "";
       var fbReviews = {};
 

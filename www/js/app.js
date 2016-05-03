@@ -43,6 +43,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     }
   })
 
+  .state('app.myplaces', {
+    url: '/myPlaces',
+    views: {
+      'menuContent': {
+        templateUrl: 'myPlaces/myPlaces.html',
+        controller: 'MyPlacesCtrl'
+      }
+    }
+  })
+
   .state('app.reviewed', {
     url: '/reviewed',
     views: {

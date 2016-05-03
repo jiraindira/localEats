@@ -6,6 +6,18 @@
   padding-left: 19px;
 }
 
+.splashPageRed{
+  color: #ac1118;
+  text-align: left;
+  /*padding-left: 19px;*/
+}
+
+.splashPageBlack{
+  color: #000000;
+  text-align: left;
+  /*padding-left: 19px;*/
+}
+
 .reducedPadding {
   padding-top:2px;
 
@@ -16,6 +28,16 @@
   padding: 3px 7px;
   font-size: 10px;
   font-family: "RobotoDraft", "Roboto", "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.button1 {
+  position:relative;
+  margin-top:100%;
+  /*left:20%;*/
 }
 
 .card .item.item-avatar {
