@@ -6,7 +6,12 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'firebase'])
 
-.run(function($ionicPlatform) {
+.factory('Auth', function($firebaseAuth, FirebaseUrl) {
+  var ref = new Firebase(FirebaseUrl);
+  return $firebaseAuth(ref);
+})
+
+.run(function($ionicPlatform, $rootScope, $state) {
 
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -21,22 +26,41 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
+    // We can catch the error thrown when the $requireAuth promise is rejected
+    // and redirect the user back to the home page
+    console.log('$stateChangeError', error)
+
+    if (error === "AUTH_REQUIRED") {
+      $state.go('account.login');
+    }
+  });
+
+  $rootScope.$on("$stateChangeError", function (event, toState) {
+    console.log('$stateChangeError', toState)
+  })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
     .state('app', {
-    url: '/app',
+    url: '/',
     abstract: true,
     templateUrl: 'menu/menu.html',
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
+    resolve: {
+      currentAuth: function (Auth) {
+        return Auth.$requireAuth();
+      }
+    }
   })
 
   .state('app.dashboard', {
-    url: '/dashboard',
+    url: '',
     views: {
-      'menuContent': {
+      'mainContent': {
         templateUrl: 'dashboard/dashboard.html',
         controller: 'DashboardCtrl'
       }
@@ -44,11 +68,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
   })
 
   .state('app.myplaces', {
-    url: '/myPlaces',
+    url: '/places',
     views: {
-      'menuContent': {
+      'mainContent': {
         templateUrl: 'myPlaces/myPlaces.html',
-        controller: 'MyPlacesCtrl'
+        controller: 'MyPlacesCtrl',
+        resolve: function (Auth) {
+          return Auth.$waitForAuth();
+        }
       }
     }
   })
@@ -56,7 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
   .state('app.reviewed', {
     url: '/reviewed',
     views: {
-      'menuContent': {
+      'mainContent': {
         templateUrl: 'reviewed/reviewed.html',
         controller: 'ReviewedCtrl'
       }
@@ -66,7 +93,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app.bookmarked', {
       url: '/bookmarked',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'bookmarked/bookmarked.html',
           controller: 'BookmarkedCtrl'
         }
@@ -76,7 +103,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app.addBookmark', {
       url: '/dashboard',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'dashboard/dashboard.html',
           controller: 'AddBookmarkCtrl'
         }
@@ -86,7 +113,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app.searchRestaurants', {
       url: '/searchRestaurants',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'searchRestaurants/searchRestaurants.html',
           controller: 'SearchRestaurantsCtrl'
         }
@@ -96,7 +123,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app.addReview', {
       url: '/addReview',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'addReview/addReview.html',
           controller: 'AddReviewCtrl'
         }
@@ -106,17 +133,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     .state('app.restaurantDetails', {
       url: '/restaurant',
       views: {
-        'menuContent': {
+        'mainContent': {
           templateUrl: 'restaurantDetails/restaurantDetails.html',
           controller: 'RestaurantDetailsCtrl'
         }
       }
     })
 
-    .state('app.login', {
+    .state('account', {
+      url: '/account',
+      abstract: true,
+      template: '<ion-nav-view name="accountContent"></ion-nav-view>'
+    })
+
+    .state('account.login', {
       url: '/login',
       views: {
-        'menuContent': {
+        'accountContent': {
           templateUrl: 'auth/login.html',
           controller: 'AuthCtrl'
         }
@@ -124,6 +157,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/');
 })
   .constant('FirebaseUrl', 'https//dazzling-heat-4525.firebaseio.com/');

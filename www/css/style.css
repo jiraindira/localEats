@@ -56,3 +56,15 @@ p {
 hr{
   border: 0.5px solid #dddddd;
 }
+
+.hero-short {
+  background-size: cover;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  color: #fff;
+  height: 100px;
+  position: relative;
+  text-align: center;
+  transform: translate3d(0,0,0);
+  width: 100%;
+
+}
