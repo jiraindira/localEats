@@ -5,7 +5,7 @@
         <ion-nav-back-button class="no-text">
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
-          <button class="button button-icon button-clear ion-android-more-vertical" menu-toggle="right">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="right">
           </button>
         </ion-nav-buttons>
       </ion-nav-bar>
@@ -15,17 +15,15 @@
 
     <ion-side-menu side="right">
       <ion-content>
-        <div class="hero-short assertive-bg">
-          <div class="content">
-            <div class="avatar" style="background-image: url({{profileData.picture}});"></div>
-            <h3><a class="light">{{profileData.firstName}}</a></h3>
-            <h3>Jirain</h3>
-          </div>
-        </div>
-
-        <div class="tabs tabs-dark tabs-icon-top static">
-
-        </div>
+        <span class="item item-thumbnail-left bg-red">
+          <img src={{profileData.picture}}>
+          <h2 class="white-font">{{profileData.firstName}}</h2>
+          <h2 class="white-font">{{profileData.email}}</h2>
+        </span>
+        <!--<div class="content">-->
+        <!--<div class="avatar" style="background-image: url({{profileData.picture}});"></div>-->
+        <!--<h3>{{profileData.firstName}}</h3>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
         <ion-list>
           <ion-item nav-clear menu-close ng-click="logout()">
@@ -36,6 +34,9 @@
           </ion-item>
           <ion-item nav-clear menu-close ui-sref="app.dashboard">
             Dashboard
+          </ion-item>
+          <ion-item nav-clear menu-close ui-sref="app.map">
+            Maps
           </ion-item>
         </ion-list>
 

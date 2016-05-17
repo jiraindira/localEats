@@ -57,14 +57,31 @@ hr{
   border: 0.5px solid #dddddd;
 }
 
-.hero-short {
+.hero-medium {
   background-size: cover;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-  color: #fff;
+  background-color: #df1118;
   height: 100px;
-  position: relative;
-  text-align: center;
-  transform: translate3d(0,0,0);
+  position: fixed;
   width: 100%;
+}
 
+.has-medium-hero {
+  top: 100px!important;
+}
+
+.bg-red {
+  background-color: #df1118;
+}
+
+.white-font {
+  color: #fbfbff;
+}
+
+.scroll {
+  height: 100%;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
 }

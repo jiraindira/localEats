@@ -40,8 +40,7 @@ angular.module('starter.controllers')
       }
       return array;
     }
-
-    console.log("am i here?");
+    
     var sortedData = [];
     var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/feed');
 

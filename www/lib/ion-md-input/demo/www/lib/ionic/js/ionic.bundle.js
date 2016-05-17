@@ -9206,11 +9206,11 @@ function angularInit(element, bootstrap) {
  *
  * <script src="angular.js"></script>
  * <script>
- *   var app = angular.module('demo', [])
+ *   var app = angular.module('app', [])
  *   .controller('WelcomeController', function($scope) {
  *       $scope.greeting = 'Welcome!';
  *   });
- *   angular.bootstrap(document, ['demo']);
+ *   angular.bootstrap(document, ['app']);
  * </script>
  * </body>
  * </html>

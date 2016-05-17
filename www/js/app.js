@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'firebase', 'ngCordova'])
 
 .factory('Auth', function($firebaseAuth, FirebaseUrl) {
   var ref = new Firebase(FirebaseUrl);
@@ -90,6 +90,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     }
     })
 
+    .state('app.map', {
+      url: '/map',
+      views: {
+        'mainContent': {
+          templateUrl: 'map/map.html',
+          controller: 'MapCtrl'
+        }
+      }
+    })
+
+    // .state('app.map', {
+    //   url: '/map',
+    //   templateUrl: 'templates/map.html',
+    //   controller: 'MapCtrl'
+    // })
+
     .state('app.bookmarked', {
       url: '/bookmarked',
       views: {
@@ -145,7 +161,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       abstract: true,
       template: '<ion-nav-view name="accountContent"></ion-nav-view>'
     })
-
+    
     .state('account.login', {
       url: '/login',
       views: {

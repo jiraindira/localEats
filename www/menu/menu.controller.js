@@ -3,7 +3,7 @@
  */
 angular.module('starter.controllers')
 
-  .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $state, $timeout, Auth) {
+  .controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $state, $timeout, Auth, UserService) {
     // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
@@ -16,6 +16,9 @@ angular.module('starter.controllers')
         this.classList.toggle('active');
       });
     }
+
+    // get data fro User Service
+    $scope.profileData = UserService.getUser();
 
     ////////////////////////////////////////
     // Layout Methods
