@@ -15,14 +15,14 @@
 
 
     <ion-list>
-      <ion-item class="item-avatar item-button-right" ng-repeat="place in places">
+      <ion-item class="item-avatar item-button-right" ng-repeat="place in places" ng-click="addRestaurant(place)">
         <img src="img/cutlery.jpg" alt="Photo">
         <h2>{{place.name}}</h2>
         <p>{{place.location.crossStreet}}</p>
-        <div class="buttons">
-          <a class="button button-clear buttonTiny" ng-click="itemSelected(place,'bookmark')"><i class="icon ion-bookmark energized"></i></a>
-          <a class="button button-clear buttonTiny" ng-click="itemSelected(place, 'review')"><i class="icon ion-clipboard energized"></i></a>
-        </div>
+        <!--<div class="buttons">-->
+          <!--<a class="button button-clear buttonTiny" ng-click="itemSelected(place,'bookmark')"><i class="icon ion-bookmark energized"></i></a>-->
+          <!--<a class="button button-clear buttonTiny" ng-click="itemSelected(place, 'review')"><i class="icon ion-clipboard energized"></i></a>-->
+        <!--</div>-->
         <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
       </ion-item>
     </ion-list>

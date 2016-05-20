@@ -1,0 +1,86 @@
+<ion-view view-title="Add Review">
+  <ion-content>
+    <h3 class="padding-left padding-top">{{restaurantData.name}}</h3>
+    <h5 class="padding-left">{{restaurantData.crossStreet}}</h5>
+
+    <div class="list">
+      <div class="item">
+        <div class="button-bar">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': reviewType('Bookmark')}" ng-click="setReviewType('Bookmark')">Bookmark</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': reviewType('Review')}" ng-click="setReviewType('Review')">Review</a>
+        </div>
+      </div>
+      <div class="item">
+        <span class="input-label">How was the food?</span>
+
+        <div class="button-bar">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('Good')}" ng-click="setFoodActive('Good')">Good</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('Great')}" ng-click="setFoodActive('Great')">Great</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isFoodActive('Mind-blowing')}" ng-click="setFoodActive('Mind-blowing')">Mind-blowing</a>
+        </div>
+
+        <p ng-if="isFoodActive('Good')">You should try it if you're in the area!</p>
+        <p ng-if="isFoodActive('Great')">You should try to make it here!</p>
+        <p ng-if="isFoodActive('Mind-blowing')">You got to eat here!!</p>
+
+      </div>
+
+      <hr width="75%">
+
+      <div class="item">
+        <span class="input-label ">How much would you tip for the service?</span>
+        <div class="button-bar">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('10%')}" ng-click="setServiceActive('10%')">10%</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('15%')}" ng-click="setServiceActive('15%')">15%</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('25%')}" ng-click="setServiceActive('25%')">25%</a>
+        </div>
+        <p ng-if="isServiceActive('10%')">The service could definitely improve!</p>
+        <p ng-if="isServiceActive('15%')">The service was good.</p>
+        <p ng-if="isServiceActive('25%')">Excellent service! Top notch!</p>
+      </div>
+
+      <hr width="75%">
+
+      <div class="item">
+        <span class="input-label ">How was the atmosphere?</span>
+        <div class="button-bar">
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('casual')}" ng-click="setVibeActive('casual')">Casual</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('trendy')}" ng-click="setVibeActive('trendy')">Trendy</a>
+          <a class="button buttonTiny" ng-class="{'button-energized-900': isVibeActive('formal')}" ng-click="setVibeActive('formal')">Formal</a>
+        </div>
+        <p ng-if="isVibeActive('casual')">Casual, laid back environment</p>
+        <p ng-if="isVibeActive('trendy')">You can impress your date here</p>
+        <p ng-if="isVibeActive('formal')">Bare minimum: shirt and tie!</p>
+      </div>
+
+      <hr width="75%">
+
+      <div class="item item-input  item-stacked-label">
+        <span class="input-label ">Recommendations</span>
+        <input type="text" placeholder="Dish Name" ng-model="reviewerData.dish">
+      </div>
+
+      <!--<div class="item">-->
+        <!--<span class="input-label ">Observations</span>-->
+        <!--<div class="item item-checkbox" ng-repeat="observation in restaurantData.observations" ng-model="observation.isSelected">-->
+          <!--<label class="checkbox"><input type="checkbox"></label>-->
+          <!--{{observation.name}}-->
+        <!--</div>-->
+
+      <!--</div>-->
+    </div>
+
+    <div class="padding">
+      <button class="button button-full button-assertive ink" ng-click="AddPost()">Submit</button>
+    </div>
+
+  <div>
+
+
+
+
+  </div>
+
+
+  </ion-content>
+</ion-view>

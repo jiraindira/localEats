@@ -90,6 +90,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     }
     })
 
+    .state('app.addRestaurant', {
+      url: '/add',
+      views: {
+        'mainContent': {
+          templateUrl: 'addRestaurant/addRestaurant.html',
+          controller: 'AddRestaurantCtrl'
+        }
+      }
+    })
+
     .state('app.map', {
       url: '/map',
       views: {
@@ -99,13 +109,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
       }
     })
-
-    // .state('app.map', {
-    //   url: '/map',
-    //   templateUrl: 'templates/map.html',
-    //   controller: 'MapCtrl'
-    // })
-
+    
     .state('app.bookmarked', {
       url: '/bookmarked',
       views: {
@@ -161,7 +165,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
       abstract: true,
       template: '<ion-nav-view name="accountContent"></ion-nav-view>'
     })
-    
+
     .state('account.login', {
       url: '/login',
       views: {

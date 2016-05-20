@@ -54,6 +54,33 @@ angular.module('starter.controllers')
 
     };
 
+    $scope.addRestaurant = function(selected){
+
+      $scope.selectedPlace = selected;
+      $scope.placeSelected = true;
+
+      //store info from fsquare and move to next view
+      $scope.restaurantData.name = selected.name;
+      $scope.restaurantData.address = selected.location.address;
+      $scope.restaurantData.location = selected.location.city;
+      $scope.restaurantData.fsquareID = selected.id;
+      if ("crossStreet" in selected.location){
+        $scope.restaurantData.crossStreet = selected.location.crossStreet;
+      }
+      else
+      {
+        $scope.restaurantData.crossStreet = "N/A"
+      }
+      $scope.restaurantData.longitude = selected.location.lng;
+      $scope.restaurantData.latitude = selected.location.lat;
+
+      restaurantDataService.RestaurantAttributes = $scope.restaurantData;
+      this.data.search = null;
+
+      $state.go('app.addRestaurant', {}, {reload: true});
+
+    };
+
     function get4SquareRestaurants(query){
       //var location = "New York";
       var defered = $q.defer();
