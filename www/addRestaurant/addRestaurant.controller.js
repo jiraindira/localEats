@@ -15,15 +15,34 @@ angular.module('starter.controllers')
     $scope.reviewerData = {};
     $scope.reviewerData.dish = "";
     $scope.reviewerData = {
-      food: 'Good',
-      service: '15%',
-      vibe: 'casual',
-      reviewType: 'Review'
+      // food: 'Good',
+      // service: '15%',
+      // vibe: 'casual',
+      reviewType: 'Bookmark'
     };
 
     $scope.setReviewType = function(type) {
       $scope.reviewerData.reviewType = type;
+
+      //set reviewer data to the correct values. when the reviewType is Bookmark, food - vibe - service should be blank
+      if (type === "Bookmark"){
+        $scope.reviewerData = {
+          food: '',
+          service: '',
+          vibe: '',
+          reviewType: 'Bookmark'
+        };
+      }
+      else {
+        $scope.reviewerData = {
+          food: 'Good',
+          service: '15%',
+          vibe: 'casual',
+          reviewType: 'Review'
+        };
+      }
     };
+
     $scope.reviewType = function(type) {
       return type === $scope.reviewerData.reviewType;
       // console.log($scope.reviewerData.food);
@@ -51,67 +70,12 @@ angular.module('starter.controllers')
       return type === $scope.reviewerData.vibe;
     };
 
-    $scope.restaurantData.observations = [
-      {
-        name: 'Big Group',
-        isSelected: false
-      },
-      {
-        name: 'Casual',
-        isSelected: false
-      },
-      {
-        name: 'Conversations',
-        isSelected: false
-      },
-      {
-        name: 'Crowded',
-        isSelected: false
-      },
-      {
-        name: 'Date Spot',
-        isSelected: false
-      },
-      {
-        name: 'Value For Money',
-        isSelected: false
-      },
-      {
-        name: 'Service',
-        isSelected: false
-      },
-      {
-        name: 'View',
-        isSelected: false
-      },
-      {
-        name: 'Long Wait',
-        isSelected: false
-      },
-      {
-        name: 'Meeting',
-        isSelected: false
-      },
-      {
-        name: 'Mixiology',
-        isSelected: false
-      },
-      {
-        name: 'Romantic',
-        isSelected: false
-      },
-      {
-        name: 'Outdoor Space',
-        isSelected: false
-      }
-    ];
-
     var self = this;
 
     $scope.AddPost = function() {
       $scope.reviewerData.reviewer = profileName;
       $scope.reviewerData.id = profileID;
-      $scope.reviewerData.entryType = 'Reviewed';
+      // $scope.reviewerData.entryType = 'Reviewed';
 
       var id = $scope.restaurantData.fsquareID;
       var manualId = $scope.restaurantData.name;
@@ -138,7 +102,7 @@ angular.module('starter.controllers')
       var payloadReviewer = angular.copy($scope.reviewerData);
 
       // create restaurant object from firebase
-        var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
+        var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/restaurants');
       var reviewsUrl = "";
       var fbReviews = {};
 
@@ -150,7 +114,7 @@ angular.module('starter.controllers')
           var key = Object.keys(data)[0];
           var masterList = consolidateObservation(data[key], $scope.restaurantData.observations);
           restoRef.child(key).set(masterList);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + key + "/user";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + key + "/user";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});
@@ -158,7 +122,7 @@ angular.module('starter.controllers')
         else {
           //var masterList1 = consolidateObservation(payloadRestaurant,$scope.restaurantData.observations);
           var pushedResto = restoRef.push(payloadRestaurant);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/reviewed/' + pushedResto.key() + "/user";
+          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + pushedResto.key() + "/user";
           fbReviews = new Firebase(reviewsUrl);
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});
@@ -171,7 +135,7 @@ angular.module('starter.controllers')
       $scope.feedData.user = angular.copy($scope.reviewerData.reviewer);
       $scope.feedData.restaurantName = angular.copy($scope.restaurantData.name);
       $scope.feedData.fsquareID = angular.copy($scope.restaurantData.fsquareID);
-      $scope.feedData.entryType = 'Reviewed';
+      $scope.feedData.entryType = angular.copy($scope.reviewerData.reviewType);
       $scope.feedData.address = angular.copy($scope.restaurantData.address);
       $scope.feedData.date = angular.copy($scope.reviewerData.date);
       $scope.feedData.dateVal = angular.copy($scope.reviewerData.dateVal);

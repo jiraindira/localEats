@@ -18,10 +18,19 @@ angular.module('starter.controllers')
     }
 
     var sortedData = [];
-    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
+    var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/restaurants');
 
-    firebaseObj.orderByChild("dateVal").on('child_added', function(dataSnapshot) {
+    firebaseObj.child("user")
+      .orderByChild("reviewType")
+      .equalTo("Review")
+      .on("child_added", function(snapshot) {
+        console.log('in here')
+        console.log(snapshot.val());
+      });
+
+    firebaseObj.orderByChild("location").equalTo("New York").on("child_added", function(dataSnapshot) {
       //GET DATA
+      console.log(dataSnapshot.val());
       var data = dataSnapshot.val();
       sortedData.push(data);
       var restaurants = getArrayFromObject(sortedData);
