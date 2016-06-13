@@ -29,10 +29,10 @@
     <div class="list animate-fade-slide-in-right">
       <ion-list>
         <ion-item class="item-avatar item-icon-right" ng-repeat="feed in feeds" ng-click="restaurantSelected(feed)">
-          <img src="img/cutlery.jpg" alt="Photo">
+          <img src={{feed.userAvatar}} alt="Photo">
           <h2>{{feed.restaurantName}}</h2>
           <h4>{{feed.address}}</h4>
-          ({{feed.entryType}} by {{feed.user}} on {{feed.date}})
+          ({{feed.reviewType}}ed on {{feed.date}})
         </ion-item>
       </ion-list>
     </div>

@@ -1,15 +1,9 @@
 <ion-view view-title="Restaurant">
   <ion-content ng-class="{expanded:$scope.isExpanded}">
-    <div class="hero" style="background-image: url('img/rest-details.jpg');">
-      <!--<div class="content">-->
-        <!--<a class="button button-clear button-large flat pull-right"><i class="icon ion-images energized-900"></i></a>-->
-        <!--<a class="button button-clear button-large flat pull-right"><i class="icon ion-heart energized-900"></i></a>-->
-      <!--</div>-->
-    </div>
 
     <div class="mid-bar dark-bg z1 padding">
-      <h3>{{restaurantData.name}}</h3>
-      <p>{{restaurantData.address}}</p>
+      <h3>{{restaurantData[0].restaurantName}}</h3>
+      <p>{{restaurantData[0].address}}</p>
       <p>
         <a href="#" class="subdued">{{numOfReviews}} Review(s)</a>
         <a href="#" class="subdued">{{numOfBookmarks}} Bookmark(s)</a>
@@ -20,11 +14,11 @@
       <!--<i class="icon ion-plus"></i>-->
     <!--</button>-->
 
-    <div class="list card" ng-repeat="review in reviewData.user">
+    <div class="list card" ng-repeat="review in reviews">
 
       <div class="item item-avatar">
         <img src="img/jirain.jpg">
-        <h2>{{review.reviewer}}</h2>
+        <h2>{{review.userName}}</h2>
       </div>
 
       <div class="item item-body">
@@ -33,8 +27,8 @@
           <li><strong>Service:</strong> {{review.service}} </li>
           <li><strong>Vibe:</strong> {{review.vibe}} </li>
         </ul>
-        <h3>Recommendations:</h3>
-        <span>{{review.dish}} </span>
+        <h3>Notes:</h3>
+        <span>{{review.comments}} </span>
       </div>
     </div>
 

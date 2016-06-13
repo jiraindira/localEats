@@ -6,10 +6,40 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'ionMdInput', 'firebase', 'ngCordova'])
 
-.factory('Auth', function($firebaseAuth, FirebaseUrl) {
+  .factory('Auth', function($firebaseAuth, FirebaseUrl) {
   var ref = new Firebase(FirebaseUrl);
   return $firebaseAuth(ref);
 })
+
+  .factory('Feeds', ["$firebaseArray", function($firebaseArray){
+  var ref = new Firebase("https//dazzling-heat-4525.firebaseio.com/feeds");
+  return $firebaseArray(ref);
+}])
+
+  .factory('Restaurant', ["$firebaseArray", function($firebaseArray){
+
+    var arrRestaurant = [];
+    arrRestaurant = function(restaurantID) {
+      var restRef = new Firebase("https//dazzling-heat-4525.firebaseio.com/restaurants").orderByChild('restaurantID').equalTo(restaurantID);
+      var arrData =  $firebaseArray(restRef);
+      console.log("arrData:",arrData)
+      return arrData;
+    };
+
+    return arrRestaurant;
+  }])
+
+  .factory('Entries', ["$firebaseArray", function($firebaseArray){
+
+    var arrEntries = [];
+    arrEntries = function(key, value) {
+      var entriesRef = new Firebase("https//dazzling-heat-4525.firebaseio.com/reviews").orderByChild(key).equalTo(value);
+      var arrData =  $firebaseArray(entriesRef);
+      return arrData;
+    };
+
+    return arrEntries;
+  }])
 
 .run(function($ionicPlatform, $rootScope, $state) {
 
@@ -72,10 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
     views: {
       'mainContent': {
         templateUrl: 'myPlaces/myPlaces.html',
-        controller: 'MyPlacesCtrl',
-        resolve: function (Auth) {
-          return Auth.$waitForAuth();
-        }
+        controller: 'MyPlacesCtrl'
       }
     }
   })
@@ -109,7 +136,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ionic-material', 'io
         }
       }
     })
-    
+
     .state('app.bookmarked', {
       url: '/bookmarked',
       views: {

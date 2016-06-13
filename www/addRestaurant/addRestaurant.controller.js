@@ -6,15 +6,15 @@ angular.module('starter.controllers')
 
   .controller('AddRestaurantCtrl', function($scope, $state, $stateParams, $q, Firebase, restaurantDataService, ionicMaterialInk, ionicMaterialMotion, UserService) {
 
-    $scope.restaurantData = restaurantDataService.getRestaurant();
+    $scope.restaurantData = restaurantDataService.getRestaurantAttributes();
     var profileData = UserService.getUser();
     var profileName = profileData.firstName + " " + profileData.lastName;
     var profileID = profileData.userID;
-
+    $scope.comments = "test";
     // we will store all of the reviewer's specific data here
-    $scope.reviewerData = {};
-    $scope.reviewerData.dish = "";
-    $scope.reviewerData = {
+    $scope.reviewData = {};
+    $scope.reviewData.dish = "";
+    $scope.reviewData = {
       // food: 'Good',
       // service: '15%',
       // vibe: 'casual',
@@ -22,11 +22,11 @@ angular.module('starter.controllers')
     };
 
     $scope.setReviewType = function(type) {
-      $scope.reviewerData.reviewType = type;
+      $scope.reviewData.reviewType = type;
 
       //set reviewer data to the correct values. when the reviewType is Bookmark, food - vibe - service should be blank
       if (type === "Bookmark"){
-        $scope.reviewerData = {
+        $scope.reviewData = {
           food: '',
           service: '',
           vibe: '',
@@ -34,52 +34,59 @@ angular.module('starter.controllers')
         };
       }
       else {
-        $scope.reviewerData = {
+        $scope.reviewData = {
           food: 'Good',
-          service: '15%',
-          vibe: 'casual',
+          service: 'Decent',
+          vibe: 'Casual',
           reviewType: 'Review'
         };
       }
     };
 
     $scope.reviewType = function(type) {
-      return type === $scope.reviewerData.reviewType;
+      return type === $scope.reviewData.reviewType;
       // console.log($scope.reviewerData.food);
     };
 
     $scope.setFoodActive = function(type) {
-      $scope.reviewerData.food = type;
+      $scope.reviewData.food = type;
     };
     $scope.isFoodActive = function(type) {
-      return type === $scope.reviewerData.food;
+      return type === $scope.reviewData.food;
       // console.log($scope.reviewerData.food);
     };
 
     $scope.setServiceActive = function(type) {
-      $scope.reviewerData.service = type;
+      $scope.reviewData.service = type;
     };
     $scope.isServiceActive = function(type) {
-      return type === $scope.reviewerData.service;
+      return type === $scope.reviewData.service;
     };
 
     $scope.setVibeActive = function(type) {
-      $scope.reviewerData.vibe = type;
+      $scope.reviewData.vibe = type;
     };
     $scope.isVibeActive = function(type) {
-      return type === $scope.reviewerData.vibe;
+      return type === $scope.reviewData.vibe;
     };
 
     var self = this;
 
     $scope.AddPost = function() {
-      $scope.reviewerData.reviewer = profileName;
-      $scope.reviewerData.id = profileID;
+      $scope.reviewData.userName = profileName;
+      $scope.reviewData.userId = profileID;
+      $scope.reviewData.userAvatar = profileData.picture;
+      $scope.reviewData.restaurantName = angular.copy($scope.restaurantData.restaurantName);
+      $scope.reviewData.restaurantID = angular.copy($scope.restaurantData.restaurantID);
+      $scope.reviewData.restaurantLocation = angular.copy($scope.restaurantData.location);
+      console.log($scope.comments);
+      $scope.reviewData.comments = angular.copy($scope.comments);
+
       // $scope.reviewerData.entryType = 'Reviewed';
 
-      var id = $scope.restaurantData.fsquareID;
-      var manualId = $scope.restaurantData.name;
-      var reviewer = $scope.reviewerData.reviewer;
+      var id = $scope.restaurantData.restaurantID;
+      var manualId = $scope.restaurantData.restaurantName;
+      var reviewer = $scope.reviewData.userName;
 
 
       if (id == undefined) {
@@ -92,38 +99,35 @@ angular.module('starter.controllers')
       }
       //add date to the reviewer list
       d = new Date();
-      $scope.reviewerData.date = d.toDateString();
-      $scope.reviewerData.dateVal = 0 - Date.now();
+      $scope.reviewData.date = d.toDateString();
+      $scope.reviewData.dateVal = 0 - Date.now();
       $scope.restaurantData.date = d.toDateString();
       $scope.restaurantData.dateVal = 0 - Date.now();
 
       // Making a copy so that you don't mess with original user input
       var payloadRestaurant = angular.copy($scope.restaurantData);
-      var payloadReviewer = angular.copy($scope.reviewerData);
+      var payloadReviewer = angular.copy($scope.reviewData);
 
       // create restaurant object from firebase
-        var restoRef = new Firebase('https://dazzling-heat-4525.firebaseio.com/restaurants');
-      var reviewsUrl = "";
+      var restoRef = new Firebase('https//dazzling-heat-4525.firebaseio.com/restaurants');
       var fbReviews = {};
+
+      //add restautant to restaurant node in firebase.
 
       restoRef.orderByChild(firebaseChild).startAt(firebaseID).endAt(firebaseID).once('value', function (dataSnapshot) {
         //GET DATA
 
         if (dataSnapshot.exists()) {
-          var data = dataSnapshot.val();
-          var key = Object.keys(data)[0];
-          var masterList = consolidateObservation(data[key], $scope.restaurantData.observations);
-          restoRef.child(key).set(masterList);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + key + "/user";
-          fbReviews = new Firebase(reviewsUrl);
+          //if exist, you don't have to save the restaurant to the db.. just save the review data to review db
+          fbReviews = new Firebase('https//dazzling-heat-4525.firebaseio.com/reviews');
           fbReviews.push(payloadReviewer);
+
           $state.go('app.dashboard', {}, {reload: true});
         }
         else {
-          //var masterList1 = consolidateObservation(payloadRestaurant,$scope.restaurantData.observations);
-          var pushedResto = restoRef.push(payloadRestaurant);
-          reviewsUrl = 'https://dazzling-heat-4525.firebaseio.com/restaurants/' + pushedResto.key() + "/user";
-          fbReviews = new Firebase(reviewsUrl);
+          // if it does exist, push data to restaurant db and also review data to review db
+          restoRef.push(payloadRestaurant);
+          fbReviews = new Firebase('https//dazzling-heat-4525.firebaseio.com/reviews');
           fbReviews.push(payloadReviewer);
           $state.go('app.dashboard', {}, {reload: true});
 
@@ -132,29 +136,20 @@ angular.module('starter.controllers')
 
       // add activity into the feed
       $scope.feedData = {};
-      $scope.feedData.user = angular.copy($scope.reviewerData.reviewer);
-      $scope.feedData.restaurantName = angular.copy($scope.restaurantData.name);
-      $scope.feedData.fsquareID = angular.copy($scope.restaurantData.fsquareID);
-      $scope.feedData.entryType = angular.copy($scope.reviewerData.reviewType);
-      $scope.feedData.address = angular.copy($scope.restaurantData.address);
-      $scope.feedData.date = angular.copy($scope.reviewerData.date);
-      $scope.feedData.dateVal = angular.copy($scope.reviewerData.dateVal);
+      $scope.feedData.userName = angular.copy($scope.reviewData.userName);
+      $scope.feedData.userID = angular.copy($scope.reviewData.userId);
+      $scope.feedData.restaurantName = angular.copy($scope.restaurantData.restaurantName);
+      $scope.feedData.restaurantID = angular.copy($scope.restaurantData.restaurantID);
+      $scope.feedData.reviewType = angular.copy($scope.reviewData.reviewType);
+      $scope.feedData.restaurantAddress = angular.copy($scope.restaurantData.address);
+      $scope.feedData.date = angular.copy($scope.reviewData.date);
+      $scope.feedData.dateVal = angular.copy($scope.reviewData.dateVal);
+      $scope.feedData.userAvatar = angular.copy($scope.reviewData.userAvatar);
 
       var payloadFeed = angular.copy($scope.feedData);
-      var feedRed = new Firebase('https://dazzling-heat-4525.firebaseio.com/feed');
+      var feedRed = new Firebase('https//dazzling-heat-4525.firebaseio.com/feeds');
       feedRed.push(payloadFeed);
 
     };
 
-    //consolidate observations into a master list
-    function consolidateObservation(masterObservation,userObservation){
-      for (var i in userObservation){
-        if (userObservation[i].isSelected === true){
-          // i need to fix this. I should refer to the name instead of the i
-          masterObservation.observations[i] = angular.copy(userObservation[i]);
-        }
-
-      }
-      return masterObservation;
-    }
   });

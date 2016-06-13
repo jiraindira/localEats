@@ -4,45 +4,52 @@
 
 angular.module('starter.controllers')
 
-  .controller('RestaurantDetailsCtrl', function($scope, $state, $stateParams, Firebase,selectedRestaurantService, ionicMaterialInk, ionicMaterialMotion, dataSourceReviewedBookmarked ){
+  .controller('RestaurantDetailsCtrl', function($scope, $state, $stateParams, Firebase,selectedRestaurantService, ionicMaterialInk, ionicMaterialMotion, Entries, Restaurant ){
     $scope.item = selectedRestaurantService.getSelectedRestaurant();
-    $scope.dataSource = dataSourceReviewedBookmarked.getDataSource();
 
-    var fsquareid = $scope.item.fsquareID;
+    // $scope.restaurantData = Restaurant($scope.item.restaurantID).val();
+    var arrRestaurantDetails = Restaurant($scope.item.restaurantID);
+    arrRestaurantDetails.$loaded()
+      .then(function(){
+        $scope.restaurantData = arrRestaurantDetails;
+      });
 
-    // if ($scope.dataSource == "Reviewed" || $scope.dataSource == "Bookmarked") {
-    //   var entryType = $scope.item.user.entryType;
-    // }
-    // else
-    // {
-    //   var entryType = $scope.item.entryType;
-    // }
+    var arrReviews = Entries('restaurantID',$scope.item.restaurantID);
+    arrReviews.$loaded()
+      .then(function(){
+        //filter non reviews
+        var data = getSelectedRestaurant(arrReviews);
+        $scope.reviews = data;
+        $scope.numOfReviews = data.length;
+        $scope.numOfBookmarks = countReviewType(arrReviews);
+      });
+    // $scope.reviews = Entries('Review');
 
 
-    var firebaseObjReviewed = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
-    var firebaseObjBookmarked = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
-
-    firebaseObjReviewed.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
-      $scope.reviewData = snapshot.val();
-      // console.log($scope.restaurantData);
-      $scope.numOfReviews = snapshot.child("user").numChildren();
-
-      if($scope.dataSource === 'Reviewed')
-      {
-        $scope.restaurantData = angular.copy($scope.reviewData);
+    function getSelectedRestaurant(object) {
+      var array = [];
+      for (var key in object) {
+        if (key.substring(0,1) != '$'){
+          var item = object[key];
+          if (item.reviewType == 'Review') {
+            array.push(item);
+          };
+        }
       }
-    });
+      return array;
+    };
 
-    firebaseObjBookmarked.orderByChild("fsquareID").equalTo(fsquareid).once("child_added", function(snapshot) {
-      $scope.bookmarkData = snapshot.val();
-      // console.log($scope.restaurantData);
-      $scope.numOfBookmarks = snapshot.child("user").numChildren();
-
-      if($scope.dataSource === 'Bookmarked')
-      {
-        $scope.restaurantData = angular.copy($scope.bookmarkData);
-        console.log($scope.restaurantData);
+    function countReviewType(object) {
+      var counter = 0;
+      for (var key in object) {
+        if (key.substring(0,1) != '$'){
+          var item = object[key];
+          if (item.reviewType == 'Bookmark') {
+            counter = counter + 1;
+          };
+        }
       }
-    });
+      return counter;
+    };
 
   });

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['myService'])
 
-.controller('FilterCtrl', function($scope, Firebase, filterService, dataSourceReviewedBookmarked ) {
+.controller('FilterCtrl', function($scope, Firebase, filterService, Entries ) {
 
   var vm1 = this;
 
@@ -8,90 +8,67 @@ angular.module('starter.controllers', ['myService'])
     $scope.modal.hide();
   };
 
-  $scope.dataSource = dataSourceReviewedBookmarked;
   $scope.filterService = filterService;
 
+  if (!filterService.allCities.length) {
 
-  // if (!filterService.allReviewers.length) {
-    if ($scope.dataSource.dataSourceRB == 'Reviewed') {
-      var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/reviewed');
-    }
-    else if ($scope.dataSource.dataSourceRB == 'Bookmarked') {
-      var firebaseObj = new Firebase('https://dazzling-heat-4525.firebaseio.com/bookmarked');
-    }
+    var arrEntries = Entries('reviewType','Review');
 
-    firebaseObj.once('value', function (dataSnapshot) {
-      //GET DATA
-      var data = dataSnapshot.val();
-      var restaurants = getArrayFromObject(data);
+    // Retrieve all cities and reviewers
+    var uniqueCities = [];
+    var duplicateCities = [];
+    var uniqueReviewers = [];
+    var duplicateReviewers = [];
 
-      // store data in a $scope
-      $scope.RestaurantData = restaurants;
+    arrEntries.$loaded()
+      .then(function(){
 
-      if (!restaurants.length) return;
-
-      // Retrieve all cities
-      var allCities = [];
-      restaurants.forEach(function(restaurant){
-        allCities.push(restaurant.location);
-      });
-
-      allCities = _.unique(allCities).map(function (city) {
-        return {
-          name: city
-        }
-      });
-      filterService.allCities = allCities;
-
-      //Retrieve all reviewers
-      var allReviewers = [];
-      restaurants.forEach(function (restaurant) {
-        var reviews = getArrayFromObject(restaurant.user);
-        reviews.forEach(function (review) {
-          allReviewers.push(review.reviewer);
+        //fill filterService.allcities with data
+        angular.forEach(arrEntries, function(arrEntry) {
+          duplicateCities.push(arrEntry.restaurantLocation);
         });
+
+        uniqueCities = _.unique(duplicateCities).map(function (city) {
+          return {
+            name: city
+          }
+        });
+
+        filterService.allCities = uniqueCities;
+
+        //fill filterService.allReviewers with data
+        angular.forEach(arrEntries, function(arrEntry) {
+          duplicateReviewers.push(arrEntry.userName);
+        });
+
+        uniqueReviewers = _.unique(duplicateReviewers).map(function (reviewer) {
+          return {
+            name: reviewer
+          }
+        });
+
+        filterService.allReviewers = uniqueReviewers;
       });
-
-      allReviewers = _.unique(allReviewers).map(function (reviewer) {
-        return {
-          name: reviewer
-        }
-      });
-
-      filterService.allReviewers = allReviewers;
-      //$scope.reviewers = users;
-
-    });
-  // }
-
-  function getArrayFromObject(object) {
-    var array = [];
-    for (var key in object) {
-      var item = object[key];
-      item.id = key;
-      array.push(item);
-    }
-    return array;
   }
 })
-
+  
 .service('restaurantDataService', function(){
     var self = this;
 
     this.RestaurantAttributes = [];
+    this.RestaurantReviews = [];
+    this.RestaurantFeeds = [];
 
-    this.getRestaurant = function(){
+    this.getRestaurantAttributes = function(){
       return self.RestaurantAttributes;
     };
-})
 
-.service('dataSourceReviewedBookmarked', function(){
-    var self = this;
+    this.getRestaurantReviews = function(){
+      return self.RestaurantReviews;
+    };
 
-    this.dataSourceRB = [];
-
-    this.getDataSource = function(){
-      return self.dataSourceRB;
+    this.getRestaurantFeeds = function(){
+      return self.RestaurantFeeds;
     };
 })
 
@@ -108,14 +85,13 @@ angular.module('starter.controllers', ['myService'])
 
 .filter('myFilter',function(filterService){
   return function(input){
-    //if (angular.isUndefined(input)) return;
-    if (!angular.isArray(input)) return;
+
     var reviewers = filterService.getSelectedReviewers();
     var cities = filterService.getSelectedCities();
 
 
     //save the input in a temp output
-    var tempOutput = getArrayFromObject(input);
+    var tempOutput = input;
 
     if(reviewers.length>0){
       //apply reviewer filter on data
@@ -126,16 +102,6 @@ angular.module('starter.controllers', ['myService'])
     if(cities.length>0){
       //apply reviewer filter on data
       tempOutput = filterCity(tempOutput,cities);
-    }
-
-    function getArrayFromObject(object) {
-      var array = [];
-      for (var key in object) {
-        var item = object[key];
-        item.id = key;
-        array.push(item);
-      }
-      return array;
     }
 
     function filterReviewer(allRestaurants, selectedReviewers) {
@@ -166,7 +132,6 @@ angular.module('starter.controllers', ['myService'])
 
   this.allReviewers = [];
   this.allCities = [];
-  this.filterType = [];
 
   function getSelectedOnly(array){
     return array.filter(function(item){
@@ -181,8 +146,6 @@ angular.module('starter.controllers', ['myService'])
   this.getSelectedCities = function(){
     return getSelectedOnly(self.allCities)
   }
-
-
 })
 
 .service('profileDataService', function(){
@@ -195,105 +158,4 @@ angular.module('starter.controllers', ['myService'])
 
 });
 
-//.controller('WelcomeCtrl', function($scope, $state, $q, UserService, $ionicLoading, $firebase) {
-//  // This is the success callback from the login method
-//  var fbLoginSuccess = function(response) {
-//    if (!response.authResponse){
-//      fbLoginError("Cannot find the authResponse");
-//      return;
-//    }
-//
-//    var authResponse = response.authResponse;
-//
-//    getFacebookProfileInfo(authResponse)
-//      .then(function(profileInfo) {
-//        // For the purpose of this example I will store user data on local storage
-//        UserService.setUser({
-//          authResponse: authResponse,
-//          userID: profileInfo.id,
-//          name: profileInfo.name,
-//          email: profileInfo.email,
-//          picture : "http://graph.facebook.com/" + authResponse.userID + "/picture?type=large"
-//        });
-//        $ionicLoading.hide();
-//        $state.go('app.dashboard');
-//      }, function(fail){
-//        // Fail get profile info
-//        console.log('profile info fail', fail);
-//      });
-//  };
-//
-//  // This is the fail callback from the login method
-//  var fbLoginError = function(error){
-//    console.log('fbLoginError', error);
-//    $ionicLoading.hide();
-//  };
-//
-//  // This method is to get the user profile info from the facebook api
-//  var getFacebookProfileInfo = function (authResponse) {
-//    var info = $q.defer();
-//
-//    facebookConnectPlugin.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null,
-//      function (response) {
-//        console.log(response);
-//        info.resolve(response);
-//      },
-//      function (response) {
-//        console.log(response);
-//        info.reject(response);
-//      }
-//    );
-//    return info.promise;
-//  };
-//
-//  //This method is executed when the user press the "Login with facebook" button
-//  $scope.facebookSignIn = function() {
-//    facebookConnectPlugin.getLoginStatus(function(success){
-//      if(success.status === 'connected'){
-//        // The user is logged in and has authenticated your app, and response.authResponse supplies
-//        // the user's ID, a valid access token, a signed request, and the time the access token
-//        // and signed request each expire
-//        console.log('getLoginStatus', success.status);
-//
-//        // Check if we have our user saved
-//        var user = UserService.getUser('facebook');
-//
-//        if(!user.userID){
-//          getFacebookProfileInfo(success.authResponse)
-//            .then(function(profileInfo) {
-//              // For the purpose of this example I will store user data on local storage
-//              UserService.setUser({
-//                authResponse: success.authResponse,
-//                userID: profileInfo.id,
-//                name: profileInfo.name,
-//                email: profileInfo.email,
-//                picture : "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
-//              });
-//
-//              $state.go('app.dashboard');
-//            }, function(fail){
-//              // Fail get profile info
-//              console.log('profile info fail', fail);
-//            });
-//        }else{
-//          $state.go('app.dashboard');
-//        }
-//      } else {
-//        // If (success.status === 'not_authorized') the user is logged in to Facebook,
-//        // but has not authenticated your app
-//        // Else the person is not logged into Facebook,
-//        // so we're not sure if they are logged into this app or not.
-//
-//        console.log('getLoginStatus', success.status);
-//
-//        $ionicLoading.show({
-//          template: 'Logging in...'
-//        });
-//
-//        // Ask the permissions you need. You can learn more about
-//        // FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
-//        facebookConnectPlugin.login(['email', 'public_profile'], fbLoginSuccess, fbLoginError);
-//      }
-//    });
-//  };
-//});
+

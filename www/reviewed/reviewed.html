@@ -6,16 +6,13 @@
 
   <ion-content ng-class="{expanded:isExpanded}">
     <div class="content">
-      <!--<div class="list animate-fade-slide-in-right">-->
         <ion-list>
           <ion-item class="item-avatar item-icon-right" ng-repeat="restaurant in restaurants | myFilter" ng-click="restaurantSelected(restaurant)">
             <img src="img/cutlery.jpg" alt="Photo">
-            <h2>{{restaurant.name}}</h2>
-            <p>{{restaurant.address}}</p>
-            <!--<i class="icon ion-compose energized"></i>-->
+            <h2>{{restaurant.restaurantName}}</h2>
+            <p>{{restaurant.restaurantLocation}}</p>
           </ion-item>
         </ion-list>
-      <!--</div>-->
     </div>
   </ion-content>
 </ion-view>

@@ -28,10 +28,10 @@ angular.module('starter.controllers')
       $scope.placeSelected = true;
 
       //store info from fsquare and move to next view
-      $scope.restaurantData.name = selected.name;
+      $scope.restaurantData.restaurantName = selected.name;
       $scope.restaurantData.address = selected.location.address;
       $scope.restaurantData.location = selected.location.city;
-      $scope.restaurantData.fsquareID = selected.id;
+      $scope.restaurantData.restaurantID = selected.id;
       if ("crossStreet" in selected.location){
         $scope.restaurantData.crossStreet = selected.location.crossStreet;
       }
@@ -60,10 +60,10 @@ angular.module('starter.controllers')
       $scope.placeSelected = true;
 
       //store info from fsquare and move to next view
-      $scope.restaurantData.name = selected.name;
+      $scope.restaurantData.restaurantName = selected.name;
       $scope.restaurantData.address = selected.location.address;
       $scope.restaurantData.location = selected.location.city;
-      $scope.restaurantData.fsquareID = selected.id;
+      $scope.restaurantData.restaurantID = selected.id;
       if ("crossStreet" in selected.location){
         $scope.restaurantData.crossStreet = selected.location.crossStreet;
       }
