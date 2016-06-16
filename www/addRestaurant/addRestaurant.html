@@ -32,11 +32,11 @@
         <div class="item">
           <span class="input-label ">How was the service?</span>
           <div class="button-bar">
-            <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('So-so')}" ng-click="setServiceActive('So-so')">So-so</a>
+            <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('Average')}" ng-click="setServiceActive('Average')">Average</a>
             <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('Good')}" ng-click="setServiceActive('Good')">Good</a>
             <a class="button buttonTiny" ng-class="{'button-energized-900': isServiceActive('Exceptional')}" ng-click="setServiceActive('Exceptional')">Exceptional</a>
           </div>
-          <p ng-if="isServiceActive('So-so')">The service could definitely improve!</p>
+          <p ng-if="isServiceActive('Average')">The service could definitely improve!</p>
           <p ng-if="isServiceActive('Good')">The service was good.</p>
           <p ng-if="isServiceActive('Exceptional')">Excellent service! Top notch!</p>
         </div>
@@ -59,14 +59,14 @@
 
         <div class="item item-input  item-stacked-label">
           <span class="input-label ">Notes</span>
-          <input type="text" placeholder="Dish Name, tips, etc" ng-model="comments">
+          <input type="text" placeholder="Dish Name, tips, etc" ng-model="reviewData.comments">
         </div>
       </div>
 
       <div ng-if="reviewData.reviewType === 'Bookmark'">
         <div class="item item-input  item-stacked-label">
           <span class="input-label ">Notes</span>
-          <input type="text" placeholder="Why are you bookmarking this place?" ng-model="comments">
+          <input type="text" placeholder="Why are you bookmarking this place?" ng-model="reviewData.comments">
         </div>
       </div>
 

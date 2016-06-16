@@ -10,7 +10,7 @@ angular.module('starter.controllers')
     var profileData = UserService.getUser();
     var profileName = profileData.firstName + " " + profileData.lastName;
     var profileID = profileData.userID;
-    $scope.comments = "test";
+
     // we will store all of the reviewer's specific data here
     $scope.reviewData = {};
     $scope.reviewData.dish = "";
@@ -18,7 +18,8 @@ angular.module('starter.controllers')
       // food: 'Good',
       // service: '15%',
       // vibe: 'casual',
-      reviewType: 'Bookmark'
+      reviewType: 'Bookmark',
+      comments:""
     };
 
     $scope.setReviewType = function(type) {
@@ -30,15 +31,17 @@ angular.module('starter.controllers')
           food: '',
           service: '',
           vibe: '',
-          reviewType: 'Bookmark'
+          reviewType: 'Bookmark',
+          comments:""
         };
       }
       else {
         $scope.reviewData = {
           food: 'Good',
-          service: 'Decent',
+          service: 'Good',
           vibe: 'Casual',
-          reviewType: 'Review'
+          reviewType: 'Review',
+          comments:""
         };
       }
     };
@@ -80,7 +83,7 @@ angular.module('starter.controllers')
       $scope.reviewData.restaurantID = angular.copy($scope.restaurantData.restaurantID);
       $scope.reviewData.restaurantLocation = angular.copy($scope.restaurantData.location);
       console.log($scope.comments);
-      $scope.reviewData.comments = angular.copy($scope.comments);
+      // $scope.reviewData.comments = angular.copy($scope.state.comments);
 
       // $scope.reviewerData.entryType = 'Reviewed';
 
@@ -95,7 +98,7 @@ angular.module('starter.controllers')
       }
       else {
         var firebaseID = id;
-        var firebaseChild = "fsquareID"
+        var firebaseChild = "restaurantID"
       }
       //add date to the reviewer list
       d = new Date();
@@ -108,7 +111,7 @@ angular.module('starter.controllers')
       var payloadRestaurant = angular.copy($scope.restaurantData);
       var payloadReviewer = angular.copy($scope.reviewData);
 
-      // create restaurant object from firebase
+      // create restaurant object from firebase and push data to firebase
       var restoRef = new Firebase('https//dazzling-heat-4525.firebaseio.com/restaurants');
       var fbReviews = {};
 
